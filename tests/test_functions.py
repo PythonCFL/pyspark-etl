@@ -13,7 +13,7 @@ from functions import generar_nombre_grupo
 
 def test_generar_nombre_grupo_dev():
     nombre = generar_nombre_grupo("DEV", "MEDI_AMBIENT")
-    assert "DEV" in nombre
+    assert "dev" in nombre
     assert "medi_ambient" in nombre
 
 def test_generar_nombre_grupo_pro():
