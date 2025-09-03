@@ -5,7 +5,7 @@ Estos tests son de ejemplo y validan funciones auxiliares.
 Se ejecutan con pytest.
 """
 
-import pytest
+import pytest # type: ignore
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
