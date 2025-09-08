@@ -20,4 +20,6 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest -q --maxfail=1 --disable-warnings -o pythonpath=src
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+          pytest -q --maxfail=1 --disable-warnings
