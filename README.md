@@ -1,10 +1,11 @@
 # PySpark ETL ⚡
 
-Proyecto de ejemplo para demostrar habilidades en **PySpark**:
+![CI](https://github.com/PythonCFL/pyspark-etl/actions/workflows/ci.yml/badge.svg)
+
+Proyecto de ejemplo en **PySpark** para demostrar habilidades en ingeniería de datos:
 - Ingesta de CSV
 - Limpieza de datos
 - Joins y agregaciones
-- Uso de funciones de ventana (próximamente)
 - Escritura en Parquet particionado
 - Tests con pytest
 - CI con GitHub Actions

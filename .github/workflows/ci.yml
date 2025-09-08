@@ -20,4 +20,4 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest -q
+        run: pytest -q --maxfail=1 --disable-warnings -o pythonpath=src
