@@ -13,6 +13,7 @@ Contiene funciones modulares para:
 8. Crear grupo rol_<entorno>_<dominio3>_use_catalog
 9. Anidar grupo dentro de otro grupo
 10. Conceder permisos SELECT sobre tablas de Unity Catalog
+11. Buscar Service Principal en grupos.
 """
 
 import json
@@ -291,3 +292,64 @@ def conceder_select_tablas(token: str, workspace_url: str,
             log(f"❌ Error concediendo SELECT en {t}: {r.status_code}")
             resultados[t] = False
     return resultados
+
+
+def obtener_service_principal_id(nombre_sp: str, token: str):
+    """
+    Busca el ID del Service Principal por nombre.
+    """
+    url = f"https://accounts.azuredatabricks.net/api/2.0/accounts/{ACCOUNT_ID}/scim/v2/ServicePrincipals"
+    headers = {"Authorization": f"Bearer {token}"}
+    start_index = 1
+
+    while True:
+        response = requests.get(url, headers=headers, params={"startIndex": start_index})
+        if response.status_code != 200:
+            raise Exception(f"❌ Error al listar SPs: {response.status_code} - {response.text}")
+
+        data = response.json().get("Resources", [])
+        if not data:
+            break
+
+        for sp in data:
+            if sp.get("displayName") == nombre_sp:
+                return sp.get("id")
+
+        start_index += len(data)
+
+    raise ValueError(f"❌ No se encontró el SP con nombre: {nombre_sp}")
+
+
+def obtener_grupos_de_service_principal(nombre_sp: str):
+    """
+    Dado el nombre del SP, imprime los grupos a los que pertenece.
+    """
+    token = obtener_token()
+    sp_id = obtener_service_principal_id(nombre_sp, token)
+    print(sp_id)
+    url = f"https://accounts.azuredatabricks.net/api/2.0/accounts/{ACCOUNT_ID}/scim/v2/Groups"
+    headers = {"Authorization": f"Bearer {token}"}
+    start_index = 1
+    grupos = []
+
+    while True:
+        response = requests.get(url, headers=headers, params={"startIndex": start_index})
+        if response.status_code != 200:
+            raise Exception(f"❌ Error al obtener grupos: {response.status_code} - {response.text}")
+
+        data = response.json().get("Resources", [])
+        if not data:
+            break
+
+        for grupo in data:
+            miembros = grupo.get("members", [])
+            if any(m.get("value") == sp_id for m in miembros):
+                grupos.append(grupo.get("displayName"))
+
+        start_index += len(data)
+
+    print(f"✅ El Service Principal '{nombre_sp}' pertenece a los siguientes grupos ({len(grupos)}):")
+    for g in grupos:
+        print(f" - {g}")
+
+    return grupos

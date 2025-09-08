@@ -8,6 +8,7 @@ Descomenta el bloque que quieras probar.
 
 from functions import (
     log,
+    obtener_grupos_de_service_principal,
     obtener_token,
     revisar_usuario_existe,
     buscar_grupos_usuario_por_texto,
@@ -19,6 +20,7 @@ from functions import (
     crear_grupo_rol_catalogo,
     añadir_grupo_a_grupo,
     conceder_select_tablas,
+
     TENANT_ID,
     ACCOUNT_ID,
     ENTORNO,
@@ -73,6 +75,10 @@ def main():
     # ]
     # conceder_select_tablas(token, WORKSPACE_URL, "testcarlos@email.com", tablas)
 
+    # 11) Buscar Service Principal en grupos
+    # nombre_sp = "nombre_service_principal"  # ← CAMBIA ESTE NOMBRE por el que quieras buscar
+    # obtener_grupos_de_service_principal(nombre_sp)
+    
     log("✅ Fin de ejecución modular.\n")
 
 
