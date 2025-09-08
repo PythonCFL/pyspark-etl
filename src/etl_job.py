@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from transformations import clean_taxis, join_with_barrios, avg_trip_by_barrio
+from src.transformations import clean_taxis, join_with_barrios, avg_trip_by_barrio
 
 def main():
     spark = SparkSession.builder \
