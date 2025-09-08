@@ -1,25 +1,17 @@
-# Databricks SCIM Toolkit 🧑‍💻
+# PySpark ETL ⚡
 
-Automatización de gestión de usuarios y grupos en **Databricks** usando la API SCIM.  
-Este proyecto busca simplificar tareas repetitivas de administración mediante funciones en Python, reduciendo tiempo y errores manuales.
-
----
-
-## 🚀 Funcionalidades (MVP)
-- Crear usuario
-- Eliminar usuario
-- Buscar usuario por email o ID
-- Listar todos los grupos
-- Crear grupo si no existe
-- Añadir usuario a grupo
-- Eliminar usuario de grupo
-- Buscar grupos que contengan un string
-- Anidar grupos (meter un grupo dentro de otro)
+Proyecto de ejemplo para demostrar habilidades en **PySpark**:
+- Ingesta de CSV
+- Limpieza de datos
+- Joins y agregaciones
+- Uso de funciones de ventana (próximamente)
+- Escritura en Parquet particionado
+- Tests con pytest
+- CI con GitHub Actions
 
 ---
 
-## 🛠️ Instalación
-Clona el repositorio y entra en la carpeta:
+## 🚀 Ejecutar
 ```bash
-git clone https://github.com/PythonCFL/databricks-scim-toolkit.git
-cd databricks-scim-toolkit
+pip install -r requirements.txt
+python src/etl_job.py
